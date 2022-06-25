@@ -29,6 +29,9 @@
             {% if not user.is_authenticated %}
                     <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Log In</a>
+                          <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">Sign Up</a>
+                </li>
                 </li>
             {% endif %}
                {% if user.is_authenticated %}

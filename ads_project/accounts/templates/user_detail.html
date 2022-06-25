@@ -3,7 +3,9 @@
 {% block content %}
     <h1>Personal page {{ user_obj.get_full_name|default:user_obj.username }}</h1>
     <p>User name: {{ user_obj.username }}</p>
-  <p>Contact number: {{ user_obj.telephone }}</p>
+ {% if request.user == user_obj %}
+     <li><a href="{% url 'accounts:change' user_obj.pk %}">Change Phone Number</a></li>
+        {% endif %}
     {% if ads %}
         {% for ad in ads %}
           <p class="card-text"> Name: {{ ad.title }}</p>
