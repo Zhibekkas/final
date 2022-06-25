@@ -1,5 +1,5 @@
 from django.urls import path
-from webapp.views import IndexView, AdCreateView, AdView, AdDeleteView, AdUpdateView
+from webapp.views import IndexView, AdCreateView, AdView, AdDeleteView, AdUpdateView, AdCheckView
 
 app_name = 'webapp'
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path('ad/<int:pk>/delete/', AdDeleteView.as_view(), name="delete_ad"),
     path('ad/<int:pk>/edit/', AdUpdateView.as_view(), name="change_ad"),
     path('photo/<int:pk>/', AdView.as_view(), name="view"),
+    path('ad/<int:pk>/check/', AdCheckView.as_view(), name="check_ad"),
 ]

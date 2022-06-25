@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from webapp.models import Advertisement
-from webapp.forms import AdForm
+from webapp.forms import AdForm, ModeratorForm
 from django.urls import reverse, reverse_lazy
 
 
@@ -61,3 +61,16 @@ class AdUpdateView(PermissionRequiredMixin, UpdateView):
 
     def has_permission(self):
         return super().has_permission() or self.request.user == self.get_object().author
+
+
+class AdCheckView(PermissionRequiredMixin, UpdateView):
+    model = Advertisement
+    form_class = ModeratorForm
+    template_name = "check.html"
+    context_object_name = 'ad'
+    permission_required = 'webapp.change_ad'
+
+    def get_success_url(self):
+        return reverse('webapp:index')
+
+
