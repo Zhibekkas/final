@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Ad details {{ ad.pk }}{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block content %}
+ {% if ad.author == request.user %}
+      <a href="{% url 'webapp:change_ad' ad.pk %}"><h4>Edit</h4></a>
+     <a href="{% url 'webapp:delete_ad' ad.pk %}"><h4>Delete</h4></a>
+{% endif %}
+    {% if ad.image %}
+     <img class="photos" src="{{ ad.image.url }}" alt="photo">
+    {% endif %}
+    <p class="card-text"> Title: {{ ad.title }}</p>
+         <p class="card-text"> Date: {{ ad.created_at }}</p>
+{% endblock %}

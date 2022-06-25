@@ -6,8 +6,15 @@
      <div class="card-body">
          <p class="card-text"> title: {{ ad.title }}</p>
          <p class="card-text"> Author: {{ ad.author.username }}</p>
+         <a href="{% url 'webapp:view' ad.pk %}"><h4>Details</h4></a>
+         {% if ad.image %}
+        <img class="photos" src="{{ ad.image.url }}" alt="ad">
+         {% endif %}
   </div>
 </div>
     {% endfor %}
      </div>
+ <div>{% if is_paginated %}
+   {% include 'partial/pagination.html' %}
+{% endif %}</div>
 {% endblock %}
