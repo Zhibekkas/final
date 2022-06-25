@@ -7,10 +7,12 @@
  {% if ad.author == request.user %}
       <a href="{% url 'webapp:change_ad' ad.pk %}"><h4>Edit</h4></a>
      <a href="{% url 'webapp:delete_ad' ad.pk %}"><h4>Delete</h4></a>
+    <p class="card-text"> Moderation status: {{ ad.is_moderated }}</p>
 {% endif %}
     {% if ad.image %}
      <img class="photos" src="{{ ad.image.url }}" alt="photo">
     {% endif %}
     <p class="card-text"> Title: {{ ad.title }}</p>
+    <p>Author: {{ ad.author.username}}</p></a>
          <p class="card-text"> Date: {{ ad.created_at }}</p>
 {% endblock %}

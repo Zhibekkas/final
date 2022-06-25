@@ -5,7 +5,10 @@
      <div class="card" style="width: 25rem;">
      <div class="card-body">
          <p class="card-text"> title: {{ ad.title }}</p>
-         <p class="card-text"> Author: {{ ad.author.username }}</p>
+          {% if ad.author == request.user %}
+      <a href="{% url 'webapp:change_ad' ad.pk %}"><h4>Edit</h4></a>
+     <a href="{% url 'webapp:delete_ad' ad.pk %}"><h4>Delete</h4></a>
+{% endif %}
          <a href="{% url 'webapp:view' ad.pk %}"><h4>Details</h4></a>
          {% if ad.image %}
         <img class="photos" src="{{ ad.image.url }}" alt="ad">

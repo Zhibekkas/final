@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from webapp.models import Advertisement
 from webapp.forms import AdForm
@@ -13,6 +13,9 @@ class IndexView(ListView):
     ordering = ['-created_at']
     paginate_by = 3
 
+    def get_queryset(self):
+        return Advertisement.objects.filter(is_moderated=True)
+
 
 class AdView(DetailView):
     template_name = 'view.html'
@@ -24,6 +27,12 @@ class AdCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
     form_class = AdForm
     template_name = 'ad_create.html'
+
+    def form_valid(self, form):
+        ad = form.save(commit=False)
+        ad.author = self.request.user
+        ad.save()
+        return redirect('webapp:view', pk=ad.pk)
 
     def get_success_url(self):
         return reverse('webapp:index')
